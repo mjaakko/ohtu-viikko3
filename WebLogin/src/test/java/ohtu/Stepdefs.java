@@ -61,7 +61,43 @@ public class Stepdefs {
     public void incorrect_username_and_password_are_given(String username, String password) throws Throwable {
         logInWith(username, password);
     }
+    
+    @Given("^command new user is selected$")
+    public void command_new_user_is_selected() throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));       
+        element.click();          
+    }
 
+    @When("^a valid username \"([^\"]*)\" and password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void a_valid_username_and_password_and_matching_password_confirmation_are_entered(String username, String password) throws Throwable {
+        registerWithMatchingPassword(username, password);
+    }
+
+    @Then("^a new user is created$")
+    public void a_new_user_is_created() throws Throwable {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+
+    @When("^an invalid username \"([^\"]*)\" and password \"([^\"]*)\" are entered$")
+    public void an_invalid_username_and_password_are_entered(String username, String password) throws Throwable {
+        registerWithMatchingPassword(username, password);
+    }
+
+    @Then("^user is not created and error \"([^\"]*)\" is reported$")
+    public void user_is_not_created_and_error_is_reported(String error) throws Throwable {
+        pageHasContent(error);
+    }
+
+    @When("^a valid username \"([^\"]*)\" and an invalid password \"([^\"]*)\" are entered$")
+    public void a_valid_username_and_an_invalid_password_are_entered(String username, String password) throws Throwable {
+        registerWithMatchingPassword(username, password);
+    }
+
+    @When("^a valid username \"([^\"]*)\" and a valid password \"([^\"]*)\" are entered and password confirmation does not match$")
+    public void a_valid_username_and_a_valid_password_are_entered_and_password_confirmation_does_not_match(String username, String password) throws Throwable {
+        registerWithNonmatchingPassword(username, password);
+    }
     
     @After
     public void tearDown(){
@@ -81,6 +117,30 @@ public class Stepdefs {
         element = driver.findElement(By.name("password"));
         element.sendKeys(password);
         element = driver.findElement(By.name("login"));
+        element.submit();  
+    } 
+        
+    private void registerWithMatchingPassword(String username, String password) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("signup"));
+        element.submit();  
+    } 
+        
+    private void registerWithNonmatchingPassword(String username, String password) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password.concat("_dfasoifna"));
+        element = driver.findElement(By.name("signup"));
         element.submit();  
     } 
 }
