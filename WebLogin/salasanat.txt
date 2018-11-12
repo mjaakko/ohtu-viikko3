@@ -1,0 +1,4 @@
+pekka;akkep
+jukka;akkuj
+kyrgyz;salainen123
+teppo;salasana123
