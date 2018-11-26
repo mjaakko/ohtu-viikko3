@@ -28,3 +28,4 @@ Tiimin jäsenet äänestävät mistä kommenteista halutaan keskustella
 enemmän ja mitä asian kanssa pitäisi tehdä.
 
 
+
