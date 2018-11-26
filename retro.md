@@ -1,6 +1,5 @@
 ## Start, Stop, Continue, More of, Less of Wheel
 
-
 Taululle piirretään ympyrä, joka jaetaan viiteen sektoriin "start", 
 "stop", "continue", "more of", "less of".
 Tämän jälkeen tiimin jäsenet keskustelevat aiheista ja lisäävät 
