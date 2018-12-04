@@ -16,7 +16,7 @@ public class HasAtLeast implements Matcher {
 
     @Override
     public boolean matches(Player p) {
-        try {                                    
+        try {                       
             Method method = p.getClass().getMethod(fieldName);
             int playersValue = (Integer)method.invoke(p);
             return playersValue>=value;
